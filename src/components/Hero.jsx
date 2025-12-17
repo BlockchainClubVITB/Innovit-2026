@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Rocket, Sparkles, ChevronDown } from 'lucide-react';
 import { Link } from 'react-scroll';
+import ElectricBorder from './ElectricBorder';
+import { ParticleCard } from './MagicEffects';
+import LaserFlow from './LaserFlow';
 
 const Hero = () => {
     const [timeLeft, setTimeLeft] = useState({
@@ -41,11 +44,35 @@ const Hero = () => {
 
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4">
-            {/* Animated Background */}
-            <div className="absolute inset-0 animated-gradient opacity-30"></div>
+            {/* LaserFlow Animated Background */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <LaserFlow
+                    color="#8b5cf6"
+                    horizontalSizing={1.29}
+                    verticalSizing={3.9}
+                    wispDensity={0.7}
+                    wispSpeed={16.5}
+                    wispIntensity={3.2}
+                    flowSpeed={0.72}
+                    flowStrength={0.27}
+                    fogIntensity={0.12}
+                    fogScale={0.34}
+                    fogFallSpeed={0.61}
+                    decay={1.12}
+                    falloffStart={1.16}
+                    horizontalBeamOffset={0.0}
+                    verticalBeamOffset={-0.45}
+                    mouseTiltStrength={0.01}
+                    mouseSmoothTime={0.0}
+                />
+            </div>
+
+            {/* Gradient Overlays for Text Visibility */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 z-[1]"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 z-[1]"></div>
 
             {/* Particles */}
-            <div className="particles">
+            <div className="particles z-[2]">
                 {particles.map(particle => (
                     <div
                         key={particle.id}
@@ -60,7 +87,7 @@ const Hero = () => {
             </div>
 
             {/* Grid Overlay */}
-            <div className="absolute inset-0 opacity-10"
+            <div className="absolute inset-0 opacity-10 z-[2]"
                 style={{
                     backgroundImage: `linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)`,
@@ -134,19 +161,38 @@ const Hero = () => {
                         <p className="text-xs sm:text-sm uppercase tracking-wider text-gray-400 mb-3">Launch Countdown</p>
                         <div className="flex justify-center gap-2 sm:gap-3 md:gap-4">
                             {[
-                                { label: 'Days', value: timeLeft.days },
-                                { label: 'Hours', value: timeLeft.hours },
-                                { label: 'Minutes', value: timeLeft.minutes },
-                                { label: 'Seconds', value: timeLeft.seconds }
+                                { label: 'Days', value: timeLeft.days, color: '#8b5cf6' },
+                                { label: 'Hours', value: timeLeft.hours, color: '#3b82f6' },
+                                { label: 'Minutes', value: timeLeft.minutes, color: '#06b6d4' },
+                                { label: 'Seconds', value: timeLeft.seconds, color: '#ec4899' }
                             ].map((item, index) => (
-                                <div key={item.label} className="glass-strong p-2 sm:p-3 md:p-4 rounded-xl min-w-[60px] sm:min-w-[70px] md:min-w-[85px]">
-                                    <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text mb-1">
-                                        {String(item.value).padStart(2, '0')}
-                                    </div>
-                                    <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">
-                                        {item.label}
-                                    </div>
-                                </div>
+                                <ElectricBorder
+                                    key={item.label}
+                                    color={item.color}
+                                    speed={1}
+                                    chaos={0.5}
+                                    thickness={2}
+                                    style={{ borderRadius: 12 }}
+                                >
+                                    <ParticleCard
+                                        className="magic-card"
+                                        particleCount={6}
+                                        glowColor={item.color.replace('#', '').match(/.{2}/g).map(x => parseInt(x, 16)).join(', ')}
+                                        enableTilt={true}
+                                        enableMagnetism={false}
+                                        clickEffect={true}
+                                        enableBorderGlow={true}
+                                    >
+                                        <div className="glass-strong p-2 sm:p-3 md:p-4 rounded-xl min-w-[60px] sm:min-w-[70px] md:min-w-[85px]">
+                                            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold gradient-text mb-1">
+                                                {String(item.value).padStart(2, '0')}
+                                            </div>
+                                            <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">
+                                                {item.label}
+                                            </div>
+                                        </div>
+                                    </ParticleCard>
+                                </ElectricBorder>
                             ))}
                         </div>
                     </motion.div>

@@ -29,6 +29,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 }
 
@@ -191,6 +192,55 @@
         #3b82f6 50%,
         #06b6d4 90%,
         transparent 100%);
+  }
+
+  /* MagicBento Effects */
+  .magic-card {
+    --glow-x: 50%;
+    --glow-y: 50%;
+    --glow-intensity: 0;
+    --glow-radius: 200px;
+    --glow-color: 139, 92, 246;
+  }
+
+  .magic-border-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+        rgba(var(--glow-color), calc(var(--glow-intensity) * 0.8)) 0%,
+        rgba(var(--glow-color), calc(var(--glow-intensity) * 0.4)) 30%,
+        transparent 60%);
+    border-radius: inherit;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .magic-border-glow:hover::after {
+    opacity: 1;
+  }
+
+  .magic-border-glow:hover {
+    box-shadow: 0 4px 20px rgba(46, 24, 78, 0.4), 0 0 30px rgba(var(--glow-color), 0.2);
+  }
+
+  .magic-particle::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: rgba(var(--glow-color), 0.2);
+    border-radius: 50%;
+    z-index: -1;
   }
 }
 

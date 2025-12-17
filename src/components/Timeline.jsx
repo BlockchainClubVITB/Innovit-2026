@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, CheckCircle, Users, FileText, Code, Trophy, Lightbulb } from 'lucide-react';
+import ElectricBorder from './ElectricBorder';
+import { ParticleCard } from './MagicEffects';
 
 const Timeline = () => {
     const events = [
@@ -98,6 +100,13 @@ const Timeline = () => {
         pink: 'from-pink-500 to-pink-700'
     };
 
+    const colorHex = {
+        purple: '#8b5cf6',
+        blue: '#3b82f6',
+        cyan: '#06b6d4',
+        pink: '#ec4899'
+    };
+
     const glowClasses = {
         purple: 'glow-purple',
         blue: 'glow-blue',
@@ -149,24 +158,42 @@ const Timeline = () => {
                             >
                                 {/* Content Card */}
                                 <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                                    <motion.div
-                                        className={`glass-strong p-4 md:p-5 rounded-2xl card-hover ${event.highlight ? glowClasses[event.color] : ''
-                                            }`}
-                                        whileHover={{ scale: 1.02 }}
+                                    <ElectricBorder
+                                        color={colorHex[event.color]}
+                                        speed={event.highlight ? 1.5 : 1}
+                                        chaos={event.highlight ? 0.8 : 0.5}
+                                        thickness={event.highlight ? 2.5 : 2}
+                                        style={{ borderRadius: 16 }}
                                     >
-                                        <div className="flex items-start gap-4 md:hidden mb-3">
-                                            <div className={`p-2.5 rounded-xl bg-gradient-to-br ${colorClasses[event.color]}`}>
-                                                {event.icon}
-                                            </div>
-                                        </div>
+                                        <ParticleCard
+                                            className="magic-card"
+                                            particleCount={event.highlight ? 12 : 8}
+                                            glowColor={colorHex[event.color].replace('#', '').match(/.{2}/g).map(x => parseInt(x, 16)).join(', ')}
+                                            enableTilt={true}
+                                            enableMagnetism={true}
+                                            clickEffect={true}
+                                            enableBorderGlow={true}
+                                        >
+                                            <motion.div
+                                                className={`glass-strong p-4 md:p-5 rounded-2xl card-hover ${event.highlight ? glowClasses[event.color] : ''
+                                                    }`}
+                                                whileHover={{ scale: 1.02 }}
+                                            >
+                                                <div className="flex items-start gap-4 md:hidden mb-3">
+                                                    <div className={`p-2.5 rounded-xl bg-gradient-to-br ${colorClasses[event.color]}`}>
+                                                        {event.icon}
+                                                    </div>
+                                                </div>
 
-                                        <div className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-2 bg-gradient-to-r ${colorClasses[event.color]}`}>
-                                            {event.date}
-                                        </div>
+                                                <div className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mb-2 bg-gradient-to-r ${colorClasses[event.color]}`}>
+                                                    {event.date}
+                                                </div>
 
-                                        <h3 className="text-lg md:text-xl font-bold mb-2">{event.title}</h3>
-                                        <p className="text-sm md:text-base text-gray-400">{event.description}</p>
-                                    </motion.div>
+                                                <h3 className="text-lg md:text-xl font-bold mb-2">{event.title}</h3>
+                                                <p className="text-sm md:text-base text-gray-400">{event.description}</p>
+                                            </motion.div>
+                                        </ParticleCard>
+                                    </ElectricBorder>
                                 </div>
 
                                 {/* Icon (Desktop) */}

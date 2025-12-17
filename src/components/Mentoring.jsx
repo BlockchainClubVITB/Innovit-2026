@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Target, Zap, MessageCircle, Award } from 'lucide-react';
+import { ParticleCard } from './MagicEffects';
 
 const Mentoring = () => {
     const mentoringFeatures = [
@@ -101,21 +102,31 @@ const Mentoring = () => {
                     {/* Features Grid */}
                     <div className="grid md:grid-cols-2 gap-6 mb-12">
                         {mentoringFeatures.map((feature, index) => (
-                            <motion.div
+                            <ParticleCard
                                 key={index}
-                                className="glass-strong p-6 rounded-2xl card-hover"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                whileHover={{ scale: 1.02 }}
+                                className="magic-card"
+                                particleCount={6}
+                                glowColor="139, 92, 246"
+                                enableTilt={true}
+                                enableMagnetism={true}
+                                clickEffect={true}
+                                enableBorderGlow={true}
                             >
-                                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${colorClasses[feature.color]} mb-4`}>
-                                    {feature.icon}
-                                </div>
-                                <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
-                                <p className="text-gray-400">{feature.description}</p>
-                            </motion.div>
+                                <motion.div
+                                    className="glass-strong p-6 rounded-2xl card-hover"
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    whileHover={{ scale: 1.02 }}
+                                >
+                                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${colorClasses[feature.color]} mb-4`}>
+                                        {feature.icon}
+                                    </div>
+                                    <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
+                                    <p className="text-gray-400">{feature.description}</p>
+                                </motion.div>
+                            </ParticleCard>
                         ))}
                     </div>
 

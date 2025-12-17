@@ -4,10 +4,17 @@ import Timeline from './components/Timeline';
 import Rounds from './components/Rounds';
 import Mentoring from './components/Mentoring';
 import Footer from './components/Footer';
+import { GlobalSpotlight } from './components/MagicEffects';
 
 function App() {
   return (
     <div className="min-h-screen">
+      <GlobalSpotlight
+        enabled={true}
+        spotlightRadius={300}
+        glowColor="139, 92, 246"
+        targetSelector=".magic-card"
+      />
       <Hero />
       <Timeline />
       <Rounds />

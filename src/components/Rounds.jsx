@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Code, Trophy, ChevronDown, ChevronUp, FileText, Video, Github, Presentation } from 'lucide-react';
+import { ParticleCard } from './MagicEffects';
 
 const Rounds = () => {
     const [expandedRound, setExpandedRound] = useState(null);
@@ -138,45 +139,55 @@ const Rounds = () => {
                             transition={{ duration: 0.6, delay: index * 0.2 }}
                             className="relative"
                         >
-                            <motion.div
-                                className={`glass-strong p-4 md:p-5 rounded-2xl cursor-pointer transition-all duration-300 ${expandedRound === round.id ? 'ring-2 ring-offset-2 ring-offset-gray-900' : ''
-                                    }`}
-                                style={{
-                                    ringColor: expandedRound === round.id ? `var(--accent-${round.color})` : 'transparent'
-                                }}
-                                whileHover={{ y: -8 }}
-                                onClick={() => setExpandedRound(expandedRound === round.id ? null : round.id)}
+                            <ParticleCard
+                                className="magic-card"
+                                particleCount={10}
+                                glowColor="139, 92, 246"
+                                enableTilt={true}
+                                enableMagnetism={true}
+                                clickEffect={true}
+                                enableBorderGlow={true}
                             >
-                                {/* Icon */}
-                                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${round.gradient} mb-3`}>
-                                    {round.icon}
-                                </div>
+                                <motion.div
+                                    className={`glass-strong p-4 md:p-5 rounded-2xl cursor-pointer transition-all duration-300 ${expandedRound === round.id ? 'ring-2 ring-offset-2 ring-offset-gray-900' : ''
+                                        }`}
+                                    style={{
+                                        ringColor: expandedRound === round.id ? `var(--accent-${round.color})` : 'transparent'
+                                    }}
+                                    whileHover={{ y: -8 }}
+                                    onClick={() => setExpandedRound(expandedRound === round.id ? null : round.id)}
+                                >
+                                    {/* Icon */}
+                                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${round.gradient} mb-3`}>
+                                        {round.icon}
+                                    </div>
 
-                                {/* Phase Badge */}
-                                <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold mb-2 bg-gradient-to-r ${round.gradient}`}>
-                                    {round.phase}
-                                </div>
+                                    {/* Phase Badge */}
+                                    <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold mb-2 bg-gradient-to-r ${round.gradient}`}>
+                                        {round.phase}
+                                    </div>
 
-                                {/* Title */}
-                                <h3 className="text-xl md:text-2xl font-bold mb-2">{round.title}</h3>
-                                <p className="text-xs md:text-sm text-purple-400 mb-3">{round.subtitle}</p>
-                                <p className="text-sm md:text-base text-gray-400 mb-4">{round.description}</p>
+                                    {/* Title */}
+                                    <h3 className="text-xl md:text-2xl font-bold mb-2">{round.title}</h3>
+                                    <p className="text-xs md:text-sm text-purple-400 mb-3">{round.subtitle}</p>
+                                    <p className="text-sm md:text-base text-gray-400 mb-4">{round.description}</p>
 
-                                {/* Expand Button */}
-                                <button className="flex items-center gap-2 text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors">
-                                    {expandedRound === round.id ? (
-                                        <>
-                                            <span>Show Less</span>
-                                            <ChevronUp className="w-4 h-4" />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span>View Details</span>
-                                            <ChevronDown className="w-4 h-4" />
-                                        </>
-                                    )}
-                                </button>
-                            </motion.div>
+                                    {/* Expand Button */}
+                                    <button className="flex items-center gap-2 text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors">
+                                        {expandedRound === round.id ? (
+                                            <>
+                                                <span>Show Less</span>
+                                                <ChevronUp className="w-4 h-4" />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span>View Details</span>
+                                                <ChevronDown className="w-4 h-4" />
+                                            </>
+                                        )}
+                                    </button>
+                                </motion.div>
+                            </ParticleCard>
 
                             {/* Expanded Content */}
                             <AnimatePresence>
