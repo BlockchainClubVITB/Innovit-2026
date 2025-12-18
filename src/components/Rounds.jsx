@@ -1,12 +1,205 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lightbulb, Code, Trophy, ChevronDown, ChevronUp, FileText, Video, Github, Presentation } from 'lucide-react';
+import { Lightbulb, Code, Trophy, ChevronDown, ChevronUp, FileText, Video, Github, Presentation, X, Users } from 'lucide-react';
 import { ParticleCard } from './MagicEffects';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 const Rounds = () => {
     const isMobile = useIsMobile();
-    const [expandedRound, setExpandedRound] = useState(null);
+    const [selectedRound, setSelectedRound] = useState(null);
+
+    // Close modal on escape key
+    useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') setSelectedRound(null);
+        };
+        window.addEventListener('keydown', handleEscape);
+        return () => window.removeEventListener('keydown', handleEscape);
+    }, []);
+
+    // Prevent body scroll when modal is open
+    useEffect(() => {
+        if (selectedRound) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [selectedRound]);
+
+    const roundsData = {
+        1: {
+            title: '🧠 ROUND 1 – IDEA SUBMISSION (PHASE 1)',
+            sections: [
+                {
+                    heading: '🔹 What Participants Do',
+                    items: [
+                        'Select one assigned problem statement',
+                        'Develop a clear and well-thought-out idea',
+                        'Clearly explain:',
+                        '  ○ Problem understanding',
+                        '  ○ Proposed solution approach',
+                        '  ○ Why blockchain technology is required',
+                        '  ○ Innovation / uniqueness of the idea',
+                        '  ○ Expected real-world impact',
+                        '  ○ Feasibility of implementation'
+                    ],
+                    note: '📌 Focus of this phase is clarity of thought and innovation, not coding.'
+                },
+                {
+                    heading: '🔹 What Participants Submit',
+                    items: [
+                        'Idea document or PPT',
+                        'No source code required',
+                        'No prototype or UI required'
+                    ]
+                },
+                {
+                    heading: '🔹 What Evaluators Check',
+                    items: [
+                        'Clarity and depth of problem understanding',
+                        'Originality and innovation',
+                        'Relevance and correct justification of blockchain usage',
+                        'Practical feasibility',
+                        'Potential social, economic, or technical impact'
+                    ]
+                },
+                {
+                    heading: '🔹 Outcome',
+                    items: [
+                        'Best ideas are shortlisted',
+                        'Selected teams qualify for Phase 2'
+                    ]
+                }
+            ]
+        },
+        2: {
+            title: '⚙️ ROUND 2 – PROTOTYPE & BASIC CODE SUBMISSION (PHASE 2)',
+            sections: [
+                {
+                    heading: '🔹 What Participants Do',
+                    items: [
+                        'Convert the shortlisted idea into a working solution',
+                        'Implement:',
+                        '  ○ Core logic and smart contracts (where applicable)',
+                        '  ○ Key features of the solution',
+                        '  ○ Basic UI (polish not required at this stage)',
+                        'Achieve at least 50% completion of the proposed solution'
+                    ]
+                },
+                {
+                    heading: '🔹 What Participants Submit',
+                    items: [
+                        'Source code (GitHub repository link)',
+                        'Basic working prototype / MVP',
+                        'Architecture or workflow explanation',
+                        'Demo video clearly explaining:',
+                        '  ○ What has been built',
+                        '  ○ How the solution works',
+                        '  ○ What components are remaining'
+                    ]
+                },
+                {
+                    heading: '🔹 What Evaluators Check',
+                    items: [
+                        'Quality of technical implementation',
+                        'Correct and meaningful use of blockchain',
+                        'Functionality of core features',
+                        'Feasibility of completing remaining work',
+                        'Clarity and effectiveness of the demo video'
+                    ]
+                },
+                {
+                    heading: '🔹 Outcome',
+                    items: [
+                        'Top-performing teams are selected as Finalists',
+                        'Finalist teams move to the Grand Finale'
+                    ]
+                }
+            ]
+        },
+        3: {
+            title: '🏁 ROUND 3 – GRAND FINALE (FINAL ROUND)',
+            sections: [
+                {
+                    heading: '🔹 What Participants Do',
+                    items: [
+                        'Present a fully refined and completed solution',
+                        'Incorporate mentor feedback',
+                        'Demonstrate:',
+                        '  ○ End-to-end working of the solution',
+                        '  ○ Real-world use case',
+                        '  ○ Scalability and future scope'
+                    ]
+                },
+                {
+                    heading: '🔹 What Participants Present',
+                    items: [
+                        'Final pitch presentation',
+                        'Live product demo',
+                        'System architecture and technical explanation',
+                        'Clear articulation of impact and value proposition'
+                    ]
+                },
+                {
+                    heading: '🔹 What Judges Evaluate',
+                    items: [
+                        'Innovation and uniqueness',
+                        'Technical depth and execution quality',
+                        'Effectiveness of blockchain integration',
+                        'Real-world applicability and scalability',
+                        'Presentation quality and Q&A handling'
+                    ]
+                },
+                {
+                    heading: '🔹 Outcome',
+                    items: [
+                        'Top teams are declared winners',
+                        'Special recognitions and awards are announced during the finale'
+                    ]
+                }
+            ]
+        }
+    };
+
+    const mentoringPhase = {
+        title: '🤝 MENTORING PHASE',
+        subtitle: '(Between Phase 2 & Phase 3)',
+        sections: [
+            {
+                heading: '🔹 What Happens',
+                items: [
+                    'Finalist teams receive exclusive mentoring',
+                    'Guidance provided by:',
+                    '  ○ SIH Grand Finalists',
+                    '  ○ Domain and technical mentors'
+                ]
+            },
+            {
+                heading: '🔹 Mentors Help Teams With',
+                items: [
+                    'Technical and architectural improvements',
+                    'Correcting design or implementation gaps',
+                    'UI/UX and presentation enhancement',
+                    'Making the solution competition-ready'
+                ],
+                note: '📌 Mentorship is advisory and does not directly affect judging scores.'
+            }
+        ]
+    };
+
+    const generalRules = {
+        title: '📌 General Rules & Instructions',
+        items: [
+            'All submissions must be original',
+            'Plagiarism or misrepresentation will lead to disqualification',
+            'Teams must adhere strictly to deadlines',
+            'Judges\' decisions are final and binding',
+            'Organizers reserve the right to make necessary changes to the schedule'
+        ]
+    };
 
     const rounds = [
         {
@@ -17,28 +210,7 @@ const Rounds = () => {
             icon: <Lightbulb className="w-8 h-8" />,
             color: 'gold',
             gradient: 'from-yellow-500 to-amber-600',
-            description: 'Transform your vision into a compelling proposal',
-            whatToDo: [
-                'Choose one problem statement from the released themes',
-                'Clearly explain your understanding of the problem',
-                'Propose an innovative solution approach',
-                'Justify why blockchain technology is essential',
-                'Highlight the innovation and uniqueness of your idea',
-                'Demonstrate expected impact and feasibility'
-            ],
-            submissions: [
-                'Idea document or PowerPoint presentation',
-                'No code implementation required',
-                'No prototype required at this stage'
-            ],
-            evaluation: [
-                'Clarity of problem understanding',
-                'Originality and innovation of the idea',
-                'Relevance and correct application of blockchain',
-                'Practical feasibility of implementation',
-                'Potential real-world impact'
-            ],
-            outcome: 'Best ideas shortlisted for Phase 2'
+            description: 'Transform your vision into a compelling proposal'
         },
         {
             id: 2,
@@ -48,28 +220,7 @@ const Rounds = () => {
             icon: <Code className="w-8 h-8" />,
             color: 'blue',
             gradient: 'from-blue-500 to-cyan-500',
-            description: 'Bring your idea to life with working code',
-            whatToDo: [
-                'Convert approved idea into a working solution',
-                'Implement core logic and key features',
-                'Develop basic UI (final polish not required)',
-                'Show at least 50% completion of proposed solution',
-                'Prepare architecture and workflow documentation'
-            ],
-            submissions: [
-                'Source code via GitHub repository',
-                'Basic working prototype / MVP',
-                'Architecture and workflow explanation',
-                'Demo video explaining what is built, how it works, and what remains'
-            ],
-            evaluation: [
-                'Technical implementation quality',
-                'Correctness of blockchain integration',
-                'Functionality of core features',
-                'Feasibility to complete remaining work',
-                'Clarity of video explanation'
-            ],
-            outcome: 'Top-performing teams selected as Finalists'
+            description: 'Bring your idea to life with working code'
         },
         {
             id: 3,
@@ -79,37 +230,9 @@ const Rounds = () => {
             icon: <Trophy className="w-8 h-8" />,
             color: 'pink',
             gradient: 'from-pink-500 to-rose-600',
-            description: 'Showcase your refined solution to the judges',
-            whatToDo: [
-                'Present fully refined and polished solution',
-                'Incorporate mentor feedback from mentoring phase',
-                'Demonstrate end-to-end working functionality',
-                'Show real-world use case applications',
-                'Explain scalability and future scope'
-            ],
-            submissions: [
-                'Final pitch presentation',
-                'Live product demonstration',
-                'Complete architecture & technical explanation',
-                'Clear articulation of impact and innovation'
-            ],
-            evaluation: [
-                'Innovation and uniqueness',
-                'Technical depth and execution quality',
-                'Effectiveness of blockchain integration',
-                'Real-world applicability',
-                'Presentation skills and Q&A handling'
-            ],
-            outcome: 'Winners declared and special recognitions awarded'
+            description: 'Showcase your refined solution to the judges'
         }
     ];
-
-    const iconMap = {
-        'Idea document or PowerPoint presentation': <FileText className="w-5 h-5" />,
-        'Source code via GitHub repository': <Github className="w-5 h-5" />,
-        'Demo video explaining what is built, how it works, and what remains': <Video className="w-5 h-5" />,
-        'Final pitch presentation': <Presentation className="w-5 h-5" />
-    };
 
     return (
         <section id="rounds" className="section-padding relative overflow-hidden bg-gradient-to-b from-transparent via-yellow-900/5 to-transparent">
@@ -151,13 +274,9 @@ const Rounds = () => {
                                 enableBorderGlow={!isMobile}
                             >
                                 <motion.div
-                                    className={`glass-strong p-4 md:p-5 rounded-2xl cursor-pointer transition-all duration-300 ${expandedRound === round.id ? 'ring-2 ring-offset-2 ring-offset-gray-900' : ''
-                                        }`}
-                                    style={{
-                                        ringColor: expandedRound === round.id ? `var(--accent-${round.color})` : 'transparent'
-                                    }}
+                                    className="glass-strong p-4 md:p-5 rounded-2xl cursor-pointer transition-all duration-300"
                                     whileHover={{ y: -8 }}
-                                    onClick={() => setExpandedRound(expandedRound === round.id ? null : round.id)}
+                                    onClick={() => setSelectedRound(round.id)}
                                 >
                                     {/* Icon */}
                                     <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${round.gradient} mb-3`}>
@@ -174,99 +293,127 @@ const Rounds = () => {
                                     <p className="text-xs md:text-sm text-yellow-400 mb-3">{round.subtitle}</p>
                                     <p className="text-sm md:text-base text-[#fbe9bb] mb-4">{round.description}</p>
 
-                                    {/* Expand Button */}
+                                    {/* View Details Button */}
                                     <button className="flex items-center gap-2 text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors">
-                                        {expandedRound === round.id ? (
-                                            <>
-                                                <span>Show Less</span>
-                                                <ChevronUp className="w-4 h-4" />
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span>View Details</span>
-                                                <ChevronDown className="w-4 h-4" />
-                                            </>
-                                        )}
+                                        <span>View Details</span>
+                                        <ChevronDown className="w-4 h-4" />
                                     </button>
                                 </motion.div>
                             </ParticleCard>
-
-                            {/* Expanded Content */}
-                            <AnimatePresence>
-                                {expandedRound === round.id && (
-                                    <motion.div
-                                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                                        animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
-                                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="overflow-hidden"
-                                    >
-                                        <div className="glass-strong p-4 md:p-5 rounded-2xl space-y-4">
-                                            {/* What to Do */}
-                                            <div>
-                                                <h4 className="text-lg font-bold mb-3 flex items-center gap-2">
-                                                    <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${round.gradient}`}></span>
-                                                    What Participants Do
-                                                </h4>
-                                                <ul className="space-y-2">
-                                                    {round.whatToDo.map((item, i) => (
-                                                        <li key={i} className="text-sm text-[#fbe9bb] flex items-start gap-2">
-                                                            <span className="text-yellow-400 mt-1">•</span>
-                                                            <span>{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-
-                                            {/* Submissions */}
-                                            <div>
-                                                <h4 className="text-lg font-bold mb-3 flex items-center gap-2">
-                                                    <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${round.gradient}`}></span>
-                                                    What to Submit
-                                                </h4>
-                                                <ul className="space-y-2">
-                                                    {round.submissions.map((item, i) => (
-                                                        <li key={i} className="text-sm text-[#fbe9bb] flex items-start gap-2">
-                                                            <span className="text-blue-400">
-                                                                {iconMap[item] || <FileText className="w-5 h-5" />}
-                                                            </span>
-                                                            <span>{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-
-                                            {/* Evaluation */}
-                                            <div>
-                                                <h4 className="text-lg font-bold mb-3 flex items-center gap-2">
-                                                    <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${round.gradient}`}></span>
-                                                    Evaluation Criteria
-                                                </h4>
-                                                <ul className="space-y-2">
-                                                    {round.evaluation.map((item, i) => (
-                                                        <li key={i} className="text-sm text-[#fbe9bb] flex items-start gap-2">
-                                                            <span className="text-cyan-400">✓</span>
-                                                            <span>{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-
-                                            {/* Outcome */}
-                                            <div className={`p-4 rounded-xl bg-gradient-to-r ${round.gradient} bg-opacity-10 border border-opacity-20`}
-                                                style={{ borderColor: `var(--accent-${round.color})` }}>
-                                                <p className="text-sm font-semibold">
-                                                    <span className="text-[#fbe9bb]">Outcome:</span> {round.outcome}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
                         </motion.div>
                     ))}
                 </div>
             </div>
+
+            {/* Modal */}
+            <AnimatePresence>
+                {selectedRound && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                        onClick={() => setSelectedRound(null)}
+                    >
+                        {/* Backdrop */}
+                        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+
+                        {/* Modal Content */}
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.9, y: 20 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-strong rounded-2xl p-6 md:p-8"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setSelectedRound(null)}
+                                className="absolute top-4 right-4 p-2 rounded-full glass hover:bg-red-500/20 transition-colors"
+                            >
+                                <X className="w-6 h-6 text-[#fff1ce]" />
+                            </button>
+
+                            {/* Round Details */}
+                            <div className="space-y-6">
+                                <h2 className="text-2xl md:text-3xl font-bold gradient-text pr-12">
+                                    {roundsData[selectedRound].title}
+                                </h2>
+
+                                {roundsData[selectedRound].sections.map((section, idx) => (
+                                    <div key={idx} className="space-y-3">
+                                        <h3 className="text-lg md:text-xl font-bold text-[#fff1ce]">
+                                            {section.heading}
+                                        </h3>
+                                        <ul className="space-y-2 pl-4">
+                                            {section.items.map((item, i) => (
+                                                <li key={i} className="text-sm md:text-base text-[#fbe9bb] flex items-start gap-2">
+                                                    <span className="text-yellow-400 mt-1">●</span>
+                                                    <span>{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        {section.note && (
+                                            <p className="text-sm md:text-base text-yellow-300 italic mt-2">
+                                                {section.note}
+                                            </p>
+                                        )}
+                                    </div>
+                                ))}
+
+                                {/* Add Mentoring Phase after Round 2 */}
+                                {selectedRound === 2 && (
+                                    <div className="mt-8 p-6 glass rounded-xl border-2 border-yellow-400/30">
+                                        <h2 className="text-xl md:text-2xl font-bold gradient-text mb-2">
+                                            {mentoringPhase.title}
+                                        </h2>
+                                        <p className="text-sm text-yellow-400 mb-4">{mentoringPhase.subtitle}</p>
+
+                                        {mentoringPhase.sections.map((section, idx) => (
+                                            <div key={idx} className="space-y-3 mb-4">
+                                                <h3 className="text-lg font-bold text-[#fff1ce]">
+                                                    {section.heading}
+                                                </h3>
+                                                <ul className="space-y-2 pl-4">
+                                                    {section.items.map((item, i) => (
+                                                        <li key={i} className="text-sm md:text-base text-[#fbe9bb] flex items-start gap-2">
+                                                            <span className="text-yellow-400 mt-1">●</span>
+                                                            <span>{item}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                                {section.note && (
+                                                    <p className="text-sm md:text-base text-yellow-300 italic mt-2">
+                                                        {section.note}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Add General Rules after Round 3 */}
+                                {selectedRound === 3 && (
+                                    <div className="mt-8 p-6 glass rounded-xl border-2 border-red-400/30">
+                                        <h2 className="text-xl md:text-2xl font-bold gradient-text mb-4">
+                                            {generalRules.title}
+                                        </h2>
+                                        <ul className="space-y-2 pl-4">
+                                            {generalRules.items.map((item, i) => (
+                                                <li key={i} className="text-sm md:text-base text-[#fbe9bb] flex items-start gap-2">
+                                                    <span className="text-yellow-400 mt-1">●</span>
+                                                    <span>{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };

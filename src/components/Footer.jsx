@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Github, Linkedin, Twitter, Mail, MapPin, Calendar } from 'lucide-react';
 
 const Footer = () => {
@@ -11,9 +12,10 @@ const Footer = () => {
     ];
 
     const quickLinks = [
-        { label: 'Timeline', href: '#timeline' },
-        { label: 'Rounds', href: '#rounds' },
-        { label: 'Mentoring', href: '#mentoring' }
+        { label: 'Timeline', href: '#timeline', type: 'scroll' },
+        { label: 'Guidelines', href: '/guidelines', type: 'route' },
+        { label: 'Problem Statement', href: '/problem-statement', type: 'route' },
+        { label: 'Contact', href: '/contact', type: 'route' }
     ];
 
     return (
@@ -56,12 +58,21 @@ const Footer = () => {
                         <ul className="space-y-2">
                             {quickLinks.map((link, index) => (
                                 <li key={index}>
-                                    <a
-                                        href={link.href}
-                                        className="text-[#fbe9bb] hover:text-yellow-400 transition-colors"
-                                    >
-                                        {link.label}
-                                    </a>
+                                    {link.type === 'route' ? (
+                                        <Link
+                                            to={link.href}
+                                            className="text-[#fbe9bb] hover:text-yellow-400 transition-colors"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    ) : (
+                                        <a
+                                            href={link.href}
+                                            className="text-[#fbe9bb] hover:text-yellow-400 transition-colors"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    )}
                                 </li>
                             ))}
                         </ul>

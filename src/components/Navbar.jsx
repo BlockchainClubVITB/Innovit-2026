@@ -22,9 +22,7 @@ const Navbar = () => {
     const navLinks = [
         { href: '#home', label: 'Home', isHash: true },
         { href: '#timeline', label: 'Timeline', isHash: true },
-        { href: '#rounds', label: 'Rounds', isHash: true },
         { href: '#prizes', label: 'Prizes', isHash: true },
-        { href: '#mentoring', label: 'Mentoring', isHash: true },
         { href: '/guidelines', label: 'Guidelines', isHash: false },
         { href: '/problem-statement', label: 'Problem Statement', isHash: false },
         { href: '/contact', label: 'Contact & FAQs', isHash: false }
@@ -46,7 +44,7 @@ const Navbar = () => {
                             alt="Blockchain Club VIT Bhopal"
                             className="w-8 h-8 rounded-full object-cover"
                         />
-                        <span className="text-base sm:text-lg font-bold gradient-text">INNOVIT</span>
+                        <span className="text-base sm:text-lg font-bold gradient-text">Blockchain Club</span>
                     </Link>
 
                     {/* Desktop Navigation Links */}
