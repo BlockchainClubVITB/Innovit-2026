@@ -355,9 +355,42 @@
     box-shadow: 0 8px 20px rgba(245, 188, 34, 0.2);
   }
 
-  /* Reduce particle animation complexity */
+  /* Disable all animations on mobile for performance */
   .particle {
-    animation-duration: 25s;
+    animation: none !important;
+    display: none;
+  }
+
+  .animated-gradient {
+    animation: none !important;
+    background: linear-gradient(-45deg, #f5bc22, #2e0d8b, #ffd700, #fff1ce);
+  }
+
+  .float-animation {
+    animation: none !important;
+  }
+
+  .pulse-glow {
+    animation: none !important;
+  }
+
+  /* Disable Framer Motion animations on mobile */
+  [data-projection-id] {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Disable backdrop blur on mobile for better performance */
+  .glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10, 10, 15, 0.9);
+  }
+
+  .glass-strong {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10, 10, 15, 0.95);
   }
 }
 

@@ -49,47 +49,61 @@ const Hero = () => {
 
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 px-4">
-            {/* PixelBlast Animated Background */}
+            {/* Background - Static on mobile, animated on desktop */}
             <div className="absolute inset-0 z-0 overflow-hidden">
-                <PixelBlast
-                    variant="circle"
-                    pixelSize={4}
-                    color="#f5bc22"
-                    patternScale={2.5}
-                    patternDensity={0.8}
-                    pixelSizeJitter={0.3}
-                    enableRipples={true}
-                    rippleSpeed={0.5}
-                    rippleThickness={0.15}
-                    rippleIntensityScale={2.0}
-                    liquid={true}
-                    liquidStrength={0.08}
-                    liquidRadius={1.0}
-                    liquidWobbleSpeed={4}
-                    speed={2.5}
-                    edgeFade={0.2}
-                    transparent={true}
-                />
+                {isMobile ? (
+                    // Static gradient background for mobile
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0f] via-[#1a1410] to-[#0a0a0f]">
+                        <div className="absolute inset-0 opacity-30"
+                            style={{
+                                backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(245, 188, 34, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%)',
+                            }}
+                        />
+                    </div>
+                ) : (
+                    // Animated PixelBlast for desktop
+                    <PixelBlast
+                        variant="circle"
+                        pixelSize={4}
+                        color="#f5bc22"
+                        patternScale={2.5}
+                        patternDensity={0.8}
+                        pixelSizeJitter={0.3}
+                        enableRipples={true}
+                        rippleSpeed={0.5}
+                        rippleThickness={0.15}
+                        rippleIntensityScale={2.0}
+                        liquid={true}
+                        liquidStrength={0.08}
+                        liquidRadius={1.0}
+                        liquidWobbleSpeed={4}
+                        speed={2.5}
+                        edgeFade={0.2}
+                        transparent={true}
+                    />
+                )}
             </div>
 
             {/* Gradient Overlays for Text Visibility - Non-interactive */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 z-[1] pointer-events-none"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 z-[1] pointer-events-none"></div>
 
-            {/* Particles */}
-            <div className="particles z-[2]">
-                {particles.map(particle => (
-                    <div
-                        key={particle.id}
-                        className="particle"
-                        style={{
-                            left: particle.left,
-                            animationDelay: particle.animationDelay,
-                            animationDuration: particle.animationDuration
-                        }}
-                    />
-                ))}
-            </div>
+            {/* Particles - Disabled on mobile for performance */}
+            {!isMobile && (
+                <div className="particles z-[2]">
+                    {particles.map(particle => (
+                        <div
+                            key={particle.id}
+                            className="particle"
+                            style={{
+                                left: particle.left,
+                                animationDelay: particle.animationDelay,
+                                animationDuration: particle.animationDuration
+                            }}
+                        />
+                    ))}
+                </div>
+            )}
 
             {/* Grid Overlay */}
             <div className="absolute inset-0 opacity-10 z-[2]"
@@ -189,7 +203,7 @@ const Hero = () => {
                             <span className="text-yellow-400">📅</span> Finale: Feb 19, 2026
                         </div>
                         <a
-                            href="https://calendar.app.google/GsCcyPz8NqUHFmtt5"
+                            href="https://meet.google.com/ssh-yngy-odx"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="glass px-3 py-1.5 rounded-lg text-[#fff1ce] hover:text-yellow-400 hover:border-yellow-400/40 transition-all duration-200 cursor-pointer"

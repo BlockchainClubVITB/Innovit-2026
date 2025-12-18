@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Hero from './components/Hero';
 import Timeline from './components/Timeline';
@@ -11,49 +11,59 @@ import Navbar from './components/Navbar';
 import Contact from './components/Contact';
 import RegisterToast from './components/RegisterToast';
 import WhatsAppFloat from './components/WhatsAppFloat';
+import Preloader from './components/Preloader';
 import { GlobalSpotlight } from './components/MagicEffects';
 import { useIsMobile } from './hooks/useIsMobile';
 
 function App() {
   const isMobile = useIsMobile();
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <BrowserRouter>
-      <div className="min-h-screen">
-        {/* Navbar */}
-        <Navbar />
+    <>
+      {/* Preloader */}
+      <Preloader onLoadComplete={() => setIsLoading(false)} />
 
-        {/* Register Toast Notification */}
-        <RegisterToast />
+      {/* Main App Content - Hidden until loading completes */}
+      <div style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease-in' }}>
+        <BrowserRouter>
+          <div className="min-h-screen">
+            {/* Navbar */}
+            <Navbar />
 
-        {/* WhatsApp Float Button */}
-        <WhatsAppFloat />
+            {/* Register Toast Notification */}
+            <RegisterToast />
 
-        {/* Disable GlobalSpotlight on mobile for performance */}
-        <GlobalSpotlight
-          enabled={!isMobile}
-          spotlightRadius={300}
-          glowColor="245, 188, 34"
-          targetSelector=".magic-card"
-        />
+            {/* WhatsApp Float Button */}
+            <WhatsAppFloat />
 
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <Timeline />
-              <LiveStream />
-              <Rounds />
-              <Mentoring />
-              <Prizes />
-            </>
-          } />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+            {/* Disable GlobalSpotlight on mobile for performance */}
+            <GlobalSpotlight
+              enabled={!isMobile}
+              spotlightRadius={300}
+              glowColor="245, 188, 34"
+              targetSelector=".magic-card"
+            />
 
-        <Footer />
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Hero />
+                  <Timeline />
+                  <LiveStream />
+                  <Rounds />
+                  <Mentoring />
+                  <Prizes />
+                </>
+              } />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+
+            <Footer />
+          </div>
+        </BrowserRouter>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 
