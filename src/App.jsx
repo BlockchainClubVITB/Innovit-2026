@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Hero from './components/Hero';
 import Timeline from './components/Timeline';
 import LiveStream from './components/LiveStream';
@@ -21,6 +21,24 @@ import AnnouncementBanner from './components/AnnouncementBanner';
 import { GlobalSpotlight } from './components/MagicEffects';
 import { useIsMobile } from './hooks/useIsMobile';
 import Background from './components/Background';
+
+// Component to conditionally render float buttons
+function FloatButtons() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  if (!isHomePage) return null;
+
+  return (
+    <>
+      {/* WhatsApp Float Button */}
+      <WhatsAppFloat />
+
+      {/* Download Float Button */}
+      <DownloadFloat />
+    </>
+  );
+}
 
 function App() {
   const isMobile = useIsMobile();
@@ -45,11 +63,8 @@ function App() {
             {/* Register Toast Notification */}
             <RegisterToast />
 
-            {/* WhatsApp Float Button */}
-            <WhatsAppFloat />
-
-            {/* Download Float Button */}
-            <DownloadFloat />
+            {/* Float Buttons - Only on Home Page */}
+            <FloatButtons />
 
             {/* Disable GlobalSpotlight on mobile for performance */}
             <GlobalSpotlight

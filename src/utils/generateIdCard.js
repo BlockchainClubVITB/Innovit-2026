@@ -57,7 +57,7 @@ export async function generateIdCard({
 
     const photoSize = 224; // Size to fit inside the white box
     const photoX = 160; // X position on front card (adjusted)
-    const photoY = 232; // Y position from top (moved up)
+    const photoY = 229; // Y position from top (moved up)
 
     // Draw user photo with clipping to prevent overflow
     ctx.save();
