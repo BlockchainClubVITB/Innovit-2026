@@ -15,7 +15,7 @@ const Navbar = () => {
     };
 
     const handleRegister = () => {
-        window.open('https://forms.gle/P2wFMiZ9xrms9rg67', '_blank');
+        window.open('https://forms.gle/vbYnvFGaUz3AU1nJA', '_blank');
         setIsMenuOpen(false);
     };
 

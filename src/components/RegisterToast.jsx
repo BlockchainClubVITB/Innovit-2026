@@ -19,7 +19,7 @@ const RegisterToast = () => {
     };
 
     const handleRegister = () => {
-        window.open('https://forms.gle/P2wFMiZ9xrms9rg67', '_blank');
+        window.open('https://forms.gle/jdpdWjwL8FsvDJtb8', '_blank');
         setIsVisible(false);
     };
 
@@ -49,7 +49,7 @@ const RegisterToast = () => {
                             </div>
                             <div className="flex-1 pr-4">
                                 <h3 className="text-sm sm:text-base font-bold gradient-text">
-                                    Orientation Event
+                                    Registerations are open !!!
                                 </h3>
                                 <p className="text-xs text-[#fff1ce]/80">
                                     Register for INNOVIT 2026

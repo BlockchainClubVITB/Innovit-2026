@@ -45,11 +45,11 @@ const Hero = () => {
     };
 
     useEffect(() => {
-        const launchDate = new Date('2025-12-26T00:00:00');
+        const phase1Deadline = new Date('2026-01-13T23:59:59');
 
         const timer = setInterval(() => {
             const now = new Date();
-            const difference = launchDate - now;
+            const difference = phase1Deadline - now;
 
             if (difference > 0) {
                 setTimeLeft({
@@ -282,26 +282,18 @@ const Hero = () => {
                             <span className="text-yellow-400">📅</span> Finale: Feb 19, 2026
                         </div>
                         <a
-                            href="https://meet.google.com/ssh-yngy-odx"
+                            href="https://forms.gle/vbYnvFGaUz3AU1nJA"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="glass px-3 py-1.5 rounded-lg text-[#fff1ce] hover:text-yellow-400 hover:border-yellow-400/40 transition-all duration-200 cursor-pointer"
                         >
-                            <span className="text-yellow-400">📆</span> Meeting Schedule
-                        </a>
-                        <a
-                            href="https://youtube.com/live/9uVy8RJVCjM?feature=share"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="glass px-3 py-1.5 rounded-lg text-[#fff1ce] hover:text-yellow-400 hover:border-yellow-400/40 transition-all duration-200 cursor-pointer"
-                        >
-                            <span className="text-yellow-400">📺</span> YouTube Live
+                            <span className="text-yellow-400">📅</span> Phase 1 Registration Open
                         </a>
                     </Reveal>
 
                     {/* Countdown Timer */}
                     <Reveal className="mb-8 px-4" delay={0.6}>
-                        <p className="text-xs sm:text-sm uppercase tracking-wider text-[#fbe9bb] mb-3">Launch Countdown</p>
+                        <p className="text-xs sm:text-lg uppercase tracking-wider text-[#fbe9bb] mb-3 font-extrabold">Phase 1 [ Idea Submission ] Ends in </p>
                         <div className="flex justify-center gap-2 sm:gap-3 md:gap-4">
                             {[
                                 { label: 'Days', value: timeLeft.days, color: '#f5bc22' },

@@ -272,7 +272,7 @@ const IDCard = () => {
                         transition={{ delay: 0.1 }}
                         className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base"
                     >
-                        Upload your photo and enter your details to generate your INNOVIT 2026 participant ID card
+                        Upload your photo and enter your details to generate your INNOVIT 2026 ID card
                     </motion.p>
                 </div>
 
